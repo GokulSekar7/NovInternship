@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-01-11T18:01:38 IST" name="Default suite" finished-at="2024-01-11T18:03:15 IST" duration-ms="97153">
+    <groups>
+    </groups>
+    <test started-at="2024-01-11T18:01:38 IST" name="Default test" finished-at="2024-01-11T18:03:15 IST" duration-ms="97153">
+      <class name="com.learn.threadLocal.LearnThreadLocal">
+        <test-method signature="runTest()[pri:0, instance:com.learn.threadLocal.LearnThreadLocal@78123e82]" started-at="2024-01-11T18:01:38 IST" name="runTest" finished-at="2024-01-11T18:03:15 IST" duration-ms="96852" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runTest -->
+        <test-method signature="runTest()[pri:0, instance:com.learn.threadLocal.LearnThreadLocal@78123e82]" started-at="2024-01-11T18:01:38 IST" name="runTest" finished-at="2024-01-11T18:03:15 IST" duration-ms="96936" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runTest -->
+        <test-method signature="runTest()[pri:0, instance:com.learn.threadLocal.LearnThreadLocal@78123e82]" started-at="2024-01-11T18:01:38 IST" name="runTest" finished-at="2024-01-11T18:03:15 IST" duration-ms="96982" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runTest -->
+      </class> <!-- com.learn.threadLocal.LearnThreadLocal -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
