@@ -5,11 +5,11 @@ import io.cucumber.testng.CucumberOptions;
 import stepDefinition.ProjectSpecificMethod;
 
 
-@CucumberOptions(features = { "src/test/java/feature/CreateLead.feature"},
+@CucumberOptions(features = { "src/test/java/feature/CreateContact.feature"},
 					glue = "stepDefinition",
 					monochrome = true,
 					publish = true)
 					
-public class SampleRunner extends ProjectSpecificMethod {
+public class LeadRunner extends ProjectSpecificMethod {
 
 }

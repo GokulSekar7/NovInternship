@@ -11,7 +11,7 @@ public class WelcomePage extends ProjectSpecificMethod{
 	@When ("Click on the {string} tab")
 	public void clickTab(String tabName) {
 		WebElement opportunitytab = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@title='"+tabName+"']")));
-		driver.executeScript("arguments[0].click();", opportunitytab);
+		getDriver().executeScript("arguments[0].click();", opportunitytab);
 	}
 	
 	

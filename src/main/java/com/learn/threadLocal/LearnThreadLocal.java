@@ -33,7 +33,7 @@ public class LearnThreadLocal {
 	
 	public static void main(String[] args) {
 		setDriver();
-		getDriver().get("https://login.salesfore.com/");
+		getDriver().get("https://login.salesforce.com/");
 	}
 	
 	

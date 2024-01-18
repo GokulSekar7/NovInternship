@@ -8,7 +8,7 @@ public class AppLauncherPage extends ProjectSpecificMethod {
 
 	@When ("Click on sales")
 	public void clickSales() {
-		driver.findElement(By.xpath("//p[text()='Sales']")).click();	
+		getDriver().findElement(By.xpath("//p[text()='Sales']")).click();	
 		
 	}
 	
