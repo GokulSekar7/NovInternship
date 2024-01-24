@@ -3,11 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="org.harley.davidson.com.TwitterSignup">
+      <class name="runner.SampleRunner">
         <methods>
-          <include name="main1"/>
+          <include name="setUpClass"/>
+          <include name="preCondition"/>
+          <include name="runScenario" invocation-numbers="0"/>
+          <include name="tearDownClass"/>
+          <include name="postCondition"/>
         </methods>
-      </class> <!-- org.harley.davidson.com.TwitterSignup -->
+      </class> <!-- runner.SampleRunner -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

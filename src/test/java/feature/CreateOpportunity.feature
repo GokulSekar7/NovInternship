@@ -1,5 +1,6 @@
 Feature: Create Opportunity
 
+@Opportunity @Functional 
 Scenario: Salesforce login with valid credential
 
 Given Load the url

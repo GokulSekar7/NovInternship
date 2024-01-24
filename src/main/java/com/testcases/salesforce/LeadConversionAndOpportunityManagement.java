@@ -56,7 +56,7 @@ Actions action;
 		
 		
 		
-//Navigate to Leads: 
+		//Navigate to Leads: 
 		
 		//Click on the toggle menu button in the left corner.
 		driver.findElement(By.className("slds-icon-waffle")).click();

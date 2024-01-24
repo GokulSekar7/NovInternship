@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,14 +14,22 @@ public class Login  extends ProjectSpecificMethod{
 
 
 
+
 @Given ("Load the url")
 public void loadTheUrl() {
+	System.out.println("GetDriver method in Test method  : " + getDriver());
 	getDriver().get("https://login.salesforce.com/");
 }
 
-@Given ("Enter the username as {string}")
+@Given ("Enter the username as (.*)$")
 public void enterUsername(String uname) {
 	getDriver().findElement(By.id("username")).sendKeys(uname);
+	try {
+		Thread.sleep(3000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 
 @Given ("Enter the password as {string}")
