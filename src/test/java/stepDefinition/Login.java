@@ -1,5 +1,6 @@
 package stepDefinition;
 
+import java.io.IOException;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
@@ -22,24 +23,34 @@ public void loadTheUrl() {
 }
 
 @Given ("Enter the username as (.*)$")
-public void enterUsername(String uname) {
-	getDriver().findElement(By.id("username")).sendKeys(uname);
+public void enterUsername(String uname) throws IOException {
 	try {
-		Thread.sleep(3000);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		getDriver().findElement(By.id("username")).sendKeys(uname);
+		reportStep("Username entered successfully", "pass");
+	} catch (Exception e) {
+		reportStep("Failed to enter the username", "fail");
 	}
+	
 }
 
 @Given ("Enter the password as {string}")
-public void enterPassword(String pwd) {
-	getDriver().findElement(By.id("password")).sendKeys(pwd);
+public void enterPassword(String pwd) throws IOException {
+	try {
+		getDriver().findElement(By.id("password")).sendKeys(pwd);
+		reportStep("password entered successfully", "pass");
+	} catch (Exception e) {
+		reportStep("unable to enter the password", "fail");
+	}
 }
 
 @When ("Click on the login button")
-public void clickLogin() {
-	getDriver().findElement(By.id("Login")).click();
+public void clickLogin() throws IOException {
+	try {
+		getDriver().findElement(By.id("Login")).click();
+		reportStep("User clicked login button successfully", "pass");
+	} catch (Exception e) {
+		reportStep("Unable to click the login button", "fail");
+	}
 }
 
 @Then ("Verify the login successfully")
