@@ -8,7 +8,7 @@ public class LearnFakerAPI {
 
 	public static void main(String[] args) {
 		
-		Faker faker = new Faker(new Locale("ENG"));
+		Faker faker = new Faker();
 		String firstName = faker.name().firstName();
 		String fn = faker.name().firstName();
 		System.out.println(firstName);
@@ -18,6 +18,8 @@ public class LearnFakerAPI {
 		System.out.println(countryCode);
 		String cname = faker.company().name();
 				System.out.println(cname);
+				
+				
 		
 	}
 

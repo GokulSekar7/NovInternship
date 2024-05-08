@@ -13,12 +13,13 @@ public class SortArray {
 				 // If first number is greater than rest of the number than interchange the numbers
 				if(a[i]>a[j]) {
 					// swap two number logic
-					a[i] = a[i]+a[j];
+					a[i] = a[i] + a[j];
 					a[j] = a[i] - a[j];
 					a[i] = a[i] - a[j];
 				}
 			}
 		}
+		System.out.println(a);
 		System.out.println(Arrays.toString(a));
 	}
 

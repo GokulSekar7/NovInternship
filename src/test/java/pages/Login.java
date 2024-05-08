@@ -4,6 +4,8 @@ import java.time.Duration;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -20,14 +22,26 @@ public Login(RemoteWebDriver driver) {
 
 @Given ("Load the url")
 public Login loadTheUrl() {
-	System.out.println("Driver value  : " + driver);
-	driver.get("https://login.salesforce.com/");
+	try {
+		System.out.println("Driver value  : " + driver);
+		driver.get("https://login.salesforce.com/");
+		
+		reportStep("pass", "Url loaded successfully");
+		
+	} catch (Exception e) {
+		reportStep("fail", "failed to load the url "+e);
+	}
 	return this;
 }
 
 @Given ("Enter the username as {string}")
 public Login enterUsername(String uname) {
-	driver.findElement(By.id("username")).sendKeys(uname);
+	try {
+		driver.findElement(By.id("username")).sendKeys(uname);
+		reportStep("pass", "Username entered successfully");
+	} catch (Exception e) {
+		reportStep("fail", "Unable enter username ");
+	}
 	return this;
 }
 
@@ -39,7 +53,18 @@ public Login enterPassword(String pwd) {
 
 @When ("Click on the login button")
 public Login clickLogin() {
-	driver.findElement(By.id("Login")).click();
+	try {
+		try {
+			driver.findElement(By.id("Login")).click();
+		} catch (ElementClickInterceptedException e) {
+			WebElement loginBtn = driver.findElement(By.id("Login"));
+			driver.executeScript("arguments[0].click()", loginBtn);
+		}
+		
+		reportStep("pass", "Login btn clicked successfully");
+	} catch (Exception e) {
+		reportStep("fail", "Failed to click login "+e);
+	}
 	return this;
 }
 
