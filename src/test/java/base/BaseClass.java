@@ -26,27 +26,57 @@ import pages.Login;
 
 public class BaseClass extends AbstractTestNGCucumberTests{
 	
-	public RemoteWebDriver driver;
-	public WebDriverWait wait;
-	public ExtentReports extent;
+//	public RemoteWebDriver driver;
+//	public WebDriverWait wait;
+	public static ExtentReports extent;
 	public String testcaseName, testcaseDesc, authorName, categoryName;
-	public static ExtentTest node;
+//	public static ExtentTest node;
+	
+	private static ThreadLocal<RemoteWebDriver > rt = new ThreadLocal<RemoteWebDriver>();
+	
+	private static ThreadLocal<WebDriverWait> wait = new ThreadLocal<WebDriverWait>();
+	
+	private static ThreadLocal<ExtentTest> parentTest = new ThreadLocal<ExtentTest>();
+	
+	private static ThreadLocal<ExtentTest> node = new ThreadLocal<ExtentTest>();
+	
+	private static ThreadLocal<String> testName = new ThreadLocal<String>();
+	
+	
+	public void setDriver() {
+		ChromeOptions option = new ChromeOptions();
+		option.addArguments("--disable-notifications");
+//		driver = new ChromeDriver(option);
+		rt.set(new ChromeDriver(option));
+	}
+	
+	public RemoteWebDriver getDriver() {
+		return rt.get();
+	}
+	
+	
+	public void setWait() {
+		wait.set(new WebDriverWait(getDriver(), Duration.ofSeconds(10)));
+	}
+	
+	public WebDriverWait getWait() {
+		return wait.get();
+	}
+	
 	
 	@BeforeMethod
 	public void preCondition() {
-		ChromeOptions option = new ChromeOptions();
-		option.addArguments("--disable-notifications");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+		setDriver();
+		getDriver().manage().window().maximize();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//		wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+		setWait();
 		
 	}
 	
 	@AfterMethod
 	public void postCondition() {
-		driver.quit();
+		getDriver().quit();
 	}
 	
 	
@@ -67,12 +97,33 @@ public class BaseClass extends AbstractTestNGCucumberTests{
 	}
 	
 	
+	public void setTestName() {
+		testName.set(testcaseName);
+	}
+	
+	public String getTestName() {
+		return testName.get();
+	}
+	
+	public void setNode() {
+		
+		node.set(parentTest.get().createNode(getTestName()));
+	}
+	
+	public ExtentTest getNode() {
+		return node.get();
+	}
+	
+	
 	@BeforeClass
 	public void setReportDetails() {
-		ExtentTest test = extent.createTest(testcaseName, testcaseDesc);
-		test.assignAuthor(authorName);
-		test.assignCategory(categoryName);
-		node = test.createNode(testcaseName);
+		ExtentTest childTest = extent.createTest(testcaseName, testcaseDesc);
+		childTest.assignAuthor(authorName);
+		childTest.assignCategory(categoryName);
+		parentTest.set(childTest);
+		setTestName();
+//		node = childTest.createNode(testcaseName);
+		setNode();
 		
 	}
 	
@@ -81,7 +132,7 @@ public class BaseClass extends AbstractTestNGCucumberTests{
 		
 		int random = (int) ((Math.random())*999999);
 		
-		File src = driver.getScreenshotAs(OutputType.FILE);
+		File src = getDriver().getScreenshotAs(OutputType.FILE);
 		File des = new File("./snaps/img"+random+".png");
 		try {
 			FileUtils.copyFile(src, des);
@@ -99,13 +150,13 @@ public class BaseClass extends AbstractTestNGCucumberTests{
 		
 		if(status.equalsIgnoreCase("pass")) {
 			try {
-				node.pass(desc, MediaEntityBuilder.createScreenCaptureFromPath(".././snaps/img"+takeSnap()+".png").build());
+				getNode().pass(desc, MediaEntityBuilder.createScreenCaptureFromPath(".././snaps/img"+takeSnap()+".png").build());
 			} catch (IOException e) {
 				
 			}
 		}else if (status.equalsIgnoreCase("fail")) {
 			try {
-				node.fail(desc, MediaEntityBuilder.createScreenCaptureFromPath(".././snaps/img"+takeSnap()+".png").build());
+				getNode().fail(desc, MediaEntityBuilder.createScreenCaptureFromPath(".././snaps/img"+takeSnap()+".png").build());
 			} catch (IOException e) {
 				
 		}

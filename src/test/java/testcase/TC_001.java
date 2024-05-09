@@ -19,7 +19,7 @@ public class TC_001 extends BaseClass{
 	
 	@Test
 	public void runTc001() {
-		new Login(driver)
+		new Login()
 		.loadTheUrl()
 		.enterUsername("gokul.sekar@testleaf.com")
 		.enterPassword("Leaf$123")

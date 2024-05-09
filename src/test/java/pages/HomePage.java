@@ -8,22 +8,20 @@ import io.cucumber.java.en.When;
 
 public class HomePage extends BaseClass {
 	
-	public HomePage(RemoteWebDriver driver) {
-		this.driver = driver;
-	}
+	
 	
 	
 
 	@When ("Click on the app launcher")
 	public HomePage clickAppLauncher() {
-		driver.findElement(By.className("slds-icon-waffle")).click();
+		getDriver().findElement(By.className("slds-icon-waffle")).click();
 		return this;
 	}
 	
 	@When ("Click on the view all button")
 	public AppLauncherPage clickViewAllBtn() {
-		driver.findElement(By.xpath("//button[text()='View All']")).click();
-		return new AppLauncherPage(driver);
+		getDriver().findElement(By.xpath("//button[text()='View All']")).click();
+		return new AppLauncherPage();
 	}
 	
 }

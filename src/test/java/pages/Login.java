@@ -16,15 +16,13 @@ import io.cucumber.java.en.When;
 
 public class Login  extends BaseClass{
 
-public Login(RemoteWebDriver driver) {
-	this.driver = driver;
-}
+
 
 @Given ("Load the url")
 public Login loadTheUrl() {
 	try {
-		System.out.println("Driver value  : " + driver);
-		driver.get("https://login.salesforce.com/");
+		
+		getDriver().get("https://login.salesforce.com/");
 		
 		reportStep("pass", "Url loaded successfully");
 		
@@ -37,7 +35,7 @@ public Login loadTheUrl() {
 @Given ("Enter the username as {string}")
 public Login enterUsername(String uname) {
 	try {
-		driver.findElement(By.id("username")).sendKeys(uname);
+		getDriver().findElement(By.id("username")).sendKeys(uname);
 		reportStep("pass", "Username entered successfully");
 	} catch (Exception e) {
 		reportStep("fail", "Unable enter username ");
@@ -47,7 +45,7 @@ public Login enterUsername(String uname) {
 
 @Given ("Enter the password as {string}")
 public Login enterPassword(String pwd) {
-	driver.findElement(By.id("password")).sendKeys(pwd);
+	getDriver().findElement(By.id("password")).sendKeys(pwd);
 	return this;
 }
 
@@ -55,10 +53,10 @@ public Login enterPassword(String pwd) {
 public Login clickLogin() {
 	try {
 		try {
-			driver.findElement(By.id("Login")).click();
+			getDriver().findElement(By.id("Login")).click();
 		} catch (ElementClickInterceptedException e) {
-			WebElement loginBtn = driver.findElement(By.id("Login"));
-			driver.executeScript("arguments[0].click()", loginBtn);
+			WebElement loginBtn = getDriver().findElement(By.id("Login"));
+			getDriver().executeScript("arguments[0].click()", loginBtn);
 		}
 		
 		reportStep("pass", "Login btn clicked successfully");
@@ -70,8 +68,8 @@ public Login clickLogin() {
 
 @Then ("Verify the login successfully")
 public HomePage verifyLogin() {
-	System.out.println(driver.getTitle());
-	return new HomePage(driver);
+	System.out.println(getDriver().getTitle());
+	return new HomePage();
 }
 
 }

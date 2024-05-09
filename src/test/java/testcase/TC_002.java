@@ -1,5 +1,6 @@
 package testcase;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import base.BaseClass;
@@ -10,10 +11,10 @@ public class TC_002 extends BaseClass{
 	
 	@Test
 	public void runTc001() {
-		new Login(driver)
+		new Login()
 		.loadTheUrl()
 		.enterUsername("gokul.sekar@testleaf.com")
-		.enterPassword("Leaf@123")
+		.enterPassword("Leaf$123")
 		.clickLogin()
 		.verifyLogin()
 		.clickAppLauncher()
@@ -23,4 +24,12 @@ public class TC_002 extends BaseClass{
 		
 	}
 	
+	
+	@BeforeTest
+	public void setData() {
+		testcaseName ="Login testcase2";
+		testcaseDesc ="Login testcase2 with positive data";
+		authorName = "gokul";
+		categoryName = "regression";
+	}
 }
