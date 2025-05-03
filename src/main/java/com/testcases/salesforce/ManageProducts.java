@@ -1,5 +1,8 @@
 package com.testcases.salesforce;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.List;
 
@@ -11,11 +14,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
+
 
 public class ManageProducts extends ProjectSpecificMethods{
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, AWTException {
 		// TODO Auto-generated method stub
 		// Disable notification
 					ChromeOptions options=new ChromeOptions();
@@ -30,9 +33,10 @@ public class ManageProducts extends ProjectSpecificMethods{
 					
 					//Login into the salesforce account using valid username and password
 					driver.findElement(By.id("username")).sendKeys("gokul.sekar@testleaf.com");
-					driver.findElement(By.id("password")).sendKeys("Leaf@223");
+					driver.findElement(By.id("password")).sendKeys("Leaf@123");
 					driver.findElement(By.id("Login")).click();
 					
+					Thread.sleep(2000);
 					//Click on toggle menu
 					driver.findElement(By.className("slds-icon-waffle")).click();
 					
@@ -52,7 +56,7 @@ public class ManageProducts extends ProjectSpecificMethods{
 					
 					//Enter the opportunity name in the search box
 					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='Opportunity-search-input']")));
-					driver.findElement(By.xpath("//input[@name='Opportunity-search-input']")).sendKeys("Next",Keys.ENTER);
+					driver.findElement(By.xpath("//input[@name='Opportunity-search-input']")).sendKeys("Testleaf",Keys.ENTER);
 					
 					//Click on the opportunity
 					//wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@class='slds-truncate outputLookupLink slds-truncate outputLookupLink-0065i00000IqhyhAAB-4403:0 forceOutputLookup']")));
@@ -92,34 +96,72 @@ public class ManageProducts extends ProjectSpecificMethods{
 					driver.findElement(By.xpath("//button[@class='slds-button slds-button--neutral uiButton--default uiButton--brand uiButton']")).click();
 					
 					//Choose Add products
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//a[@class='slds-button slds-button--icon-x-small slds-button--icon-border-filled'])[1]")));
 					driver.findElement(By.xpath("(//a[@class='slds-button slds-button--icon-x-small slds-button--icon-border-filled'])[1]")).click();
 					driver.findElement(By.xpath("//a[@title='Add Products']")).click();
-					
+					Thread.sleep(2000);
 					//Search SLA
 //					driver.findElement(By.xpath("//input[@title='Search Products']")).click();
 					WebElement searchBar = driver.findElement(By.xpath("//input[@title='Search Products']"));
 					searchBar.sendKeys("SLA"+Keys.ENTER);
-					driver.findElement(By.xpath("//span[contains(text(),'in Products')]/..")).click();
-					driver.findElement(By.xpath("//h2[text()='Add Products']")).click();
+					searchBar.clear();
+					searchBar.sendKeys("SLA");
+					searchBar.sendKeys(Keys.ENTER);
+					searchBar.sendKeys(Keys.TAB);
+				/*	Robot robot = new Robot();
+					robot.keyPress(KeyEvent.VK_ENTER);
+					robot.keyRelease(KeyEvent.VK_ENTER);
 					
+					searchBar.click();
+//					act.click(searchBar).sendKeys(Keys.ENTER).perform();
+					*/
+					driver.findElement(By.xpath("//h2[text()='Add Products']")).click();
+//					driver.findElement(By.xpath("//span[contains(text(),'in Products')]/..")).click();
+					searchBar.sendKeys(Keys.ENTER);
+					driver.findElement(By.xpath("//h2[text()='Add Products']")).click();
+					driver.findElement(By.xpath("//h2[text()='Add Products']")).click();
+					Thread.sleep(2000);
+					driver.findElement(By.xpath("//span[text()='Next']/parent::button")).click();
+					driver.findElement(By.xpath("//span[text()='Next']/parent::button")).click();
 //					wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//input[@title='Search Products']")));
 					Thread.sleep(2000);
-					WebElement selectAll = driver.findElement(By.xpath("(//table)[2]/thead//th[2]"));
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//table)[2]/thead//th[2]//input")));
+					WebElement selectAll = driver.findElement(By.xpath("(//table)[2]/thead//th[2]//div[contains(@class,'checkbox')]"));
+//					selectAll.click();
 					try {
 						selectAll.click();
 					} catch (Exception e) {
 						driver.executeScript("argments[0].click();", selectAll);
 					}
-					
+
 					driver.findElement(By.xpath("//span[text()='Next']/parent::button")).click();
-					driver.findElement(By.xpath("//a[text()='SLA: Platinum']/ancestor::th/following-sibling::td")).sendKeys("1");
-					driver.findElement(By.xpath("//a[text()='SLA: Gold']/ancestor::th/following-sibling::td")).sendKeys("2");
-					driver.findElement(By.xpath("//a[text()='SLA: Silver']/ancestor::th/following-sibling::td")).sendKeys("5");
-					driver.findElement(By.xpath("//a[text()='SLA: Bronze']/ancestor::th/following-sibling::td")).sendKeys("10");
+					
+					Thread.sleep(2000);
+					driver.findElement(By.xpath("//a[text()='SLA: Platinum']/ancestor::th/following-sibling::td")).click();
+					driver.findElement(By.xpath("//a[text()='SLA: Platinum']/ancestor::th/following-sibling::td//input")).sendKeys("1");
+//					Thread.sleep(2000);
+					driver.findElement(By.xpath("//a[text()='SLA: Platinum']/ancestor::th/following-sibling::td//input")).sendKeys(Keys.ENTER);
+					
+					
+					driver.findElement(By.xpath("//a[text()='SLA: Gold']/ancestor::th/following-sibling::td")).click();
+					driver.findElement(By.xpath("//a[text()='SLA: Gold']/ancestor::th/following-sibling::td//input")).sendKeys("2"+Keys.ENTER);
+//					driver.findElement(By.xpath("//a[text()='SLA: Gold']/ancestor::th/following-sibling::td//input")).sendKeys(Keys.ENTER);
+					
+
+					driver.findElement(By.xpath("//a[text()='SLA: Silver']/ancestor::th/following-sibling::td")).click();
+					driver.findElement(By.xpath("//a[text()='SLA: Silver']/ancestor::th/following-sibling::td//input")).sendKeys("5"+Keys.ENTER);
+					
+					driver.findElement(By.xpath("//a[text()='SLA: Bronze']/ancestor::th/following-sibling::td")).click();
+					driver.findElement(By.xpath("//a[text()='SLA: Bronze']/ancestor::th/following-sibling::td//input")).sendKeys("10"+Keys.ENTER);
 					
 					driver.findElement(By.xpath("(//span[text()='Save']/parent::button)[2]")).click();
 					
-					driver.findElement(By.xpath("(//span[text()='Products']/..)[2]")).click();
+					try {
+						driver.findElement(By.xpath("(//span[text()='Products']/..)[2]")).click();
+					} catch (Exception e) {
+						WebElement viewAll = driver.findElement(By.xpath("(//span[text()='Products']/..)[2]"));
+						driver.executeScript("arguments[0].click();", viewAll);
+					}
 					
 					List<WebElement> productsList = driver.findElements(By.xpath("(//table)[2]/tbody//td[6]"));
 					for (int i = 1; i <=productsList.size(); i++) {
@@ -148,7 +190,7 @@ public class ManageProducts extends ProjectSpecificMethods{
 	}
 	
 	
-	@Test
+//	@Test
 	public void runManageProducts() {
 		System.out.println(firstName);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='Opportunities']")));
